@@ -1,23 +1,13 @@
-from flask import request, render_template
-
 from application import app
 from application.api_response import ApiResponse
 from application.errors import ApiException
 from application.models import BankBranches
 from application.validations import Validator
+from flask import request, render_template
 
 
 @app.route('/', methods=['POST', 'GET'])
 def search():
-    # if request.method == 'POST':
-    #     options = request.form.getlist('options')
-    #     if not options:
-    #         return render_template('index.html')
-    #     else:
-    #         if options[0] == 'Search by IFSC':
-    #             return render_template('index.html')
-    #         if options[0] == 'Search by name':
-    #             return {}
     return render_template('index.html')
 
 
