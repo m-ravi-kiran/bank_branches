@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<form method="POST" action="">
+    <p>Select the search option:</p>
+    <div>
+        <input type="radio" name="options" id="Search by IFSC" value="Search by IFSC" onclick="displayRadioValue()">
+        Search by IFSC </input>
+        <input type="radio" name="options" id="Search by name" value="Search by name" onclick="displayRadioValue()">
+        Search by name </input><br>
+        <br>
+    </div>
+    <div id="ifsc1" style="display:none">
+        IFSC <input type="text" id="ifsc" name="search by ifsc"><br><br>
+        <input type="submit" name="submit_button" value="OK" onclick="searchByIFSC()">
+    </div>
+    <div id="name1" style="display:none">
+        Bank Name <input type="text" id="name" name="search by name"><br>
+
+        State <select id="state" name="search by name">
+        <option value="ANDAMAN AND NICOBAR ISLAND">ANDAMAN AND NICOBAR ISLAND</option>
+        <option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
+        <option value="ARUNACHAL PRADESH">ARUNACHAL PRADESH</option>
+        <option value="ASSAM">ASSAM</option>
+        <option value="BIHAR">BIHAR</option>
+        <option value="CHANDIGARH">CHANDIGARH</option>
+        <option value="CHHATTISGARH">CHHATTISGARH</option>
+        <option value="DADRA AND NAGAR HAVELI">DADRA AND NAGAR HAVELI</option>
+        <option value="DAMAN AND DIU">DAMAN AND DIU</option>
+        <option value="DELHI">DELHI</option>
+        <option value="GOA">GOA</option>
+        <option value="GUJARAT">GUJARAT</option>
+        <option value="HARYANA">HARYANA</option>
+        <option value="HIMACHAL PRADESH">HIMACHAL PRADESH</option>
+        <option value="JAMMU AND KASHMIR">JAMMU AND KASHMIR</option>
+        <option value="JHARKHAND">JHARKHAND</option>
+        <option value="KARANATAKA">KARANATAKA</option>
+        <option value="KARNATAKA">KARNATAKA</option>
+        <option value="KERALA">KERALA</option>
+        <option value="LAKSHADWEEP">LAKSHADWEEP</option>
+        <option value="MADHYA PRADESH">MADHYA PRADESH</option>
+        <option value="MAHARASHTRA">MAHARASHTRA</option>
+        <option value="MANIPUR">MANIPUR</option>
+        <option value="MEGHALAYA">MEGHALAYA</option>
+        <option value="MH">MH</option>
+        <option value="MIZORAM">MIZORAM</option>
+        <option value="NAGALAND">NAGALAND</option>
+        <option value="ODISHA">ODISHA</option>
+        <option value="PUDUCHERRY">PUDUCHERRY</option>
+        <option value="PUNJAB">PUNJAB</option>
+        <option value="RAJASTHAN">RAJASTHAN</option>
+        <option value="SIKKIM">SIKKIM</option>
+        <option value="TAMIL NADU">TAMIL NADU</option>
+        <option value="TELANGANA">TELANGANA</option>
+        <option value="TRIPURA">TRIPURA</option>
+        <option value="UTTAR PRADESH">UTTAR PRADESH</option>
+        <option value="UTTARAKHAND">UTTARAKHAND</option>
+        <option value="WEST BENGAL">WEST BENGAL</option>
+    </select><br>
+        City <input type="text" id="city" name="search by name"><br>
+        District <input type="text" id="district" name="search by name"><br>
+        Address <input type="text" id="address" name="search by name"><br>
+        Sort by <select id="sort_by" name="search by name">
+        <option hidden selected>Select column</option>
+        <option value="ifsc">ifsc</option>
+        <option value="bank_id">bank_id</option>
+        <option value="branch">branch</option>
+        <option value="address">address</option>
+        <option value="city">city</option>
+        <option value="district">district</option>
+        <option value="state">state</option>
+        <option value="bank_name">bank_name</option>
+    </select> <br>
+        <input type="submit" name="submit_button" value="OK" onclick="searchByName()">
+    </div>
+    <script>
+        function displayRadioValue() {
+            if (document.getElementById('Search by IFSC').checked) {
+                var x = document.getElementById("ifsc1");
+                x.style.display = 'block';
+                var y = document.getElementById("name1");
+                y.style.display = 'none';
+            }
+            else{
+              var x = document.getElementById("ifsc1");
+            x.style.display = 'none';
+            var y = document.getElementById("name1");
+            y.style.display = 'block';
+            }
+        }
+
+        function searchByIFSC() {
+            ifsc = document.getElementById('ifsc').value
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", 'http://localhost:1121/get_by_ifsc/' + ifsc, false ); // false for synchronous request
+            xmlHttp.send( null );
+            var json_data = JSON.parse(xmlHttp.responseText);
+            alert(JSON.stringify(json_data.result))
+
+        }
+
+        function searchByName() {
+            name = document.getElementById('name').value
+            state = document.getElementById('state').value
+            city = document.getElementById('city').value
+            district = document.getElementById('district').value
+            address = document.getElementById('address').value
+            sort_by = document.getElementById('sort_by').value
+            query_param = '?state='+ state
+            if (name) {
+                query_param = query_param + '&bank_name='+name
+            }
+            if (city) {
+                query_param = query_param + '&city='+city
+            }
+            if (district) {
+                query_param = query_param + '&district='+district
+            }
+            if (address) {
+                query_param = query_param + '&address='+address
+            }
+            if (sort_by && sort_by != 'Select column') {
+                query_param = query_param + '&sort_by='+sort_by
+            }
+<!--            alert(query_param)-->
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", 'http://localhost:1121/get_by_name' + query_param , false ); // false for synchronous request
+            xmlHttp.send( null );
+
+            var json_data = JSON.parse(xmlHttp.responseText);
+            alert(JSON.stringify(json_data.result))
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</form>
+</html>

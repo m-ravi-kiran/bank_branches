@@ -1,0 +1,28 @@
+You need to create a REST service that can fetch bank details, using the data given in the API’s query parameters. 
+
+You can use the data available in this csv file to load in your backend DB.
+(https://raw.githubusercontent.com/snarayanank2/indian_banks/master/bank_branches.csv)
+
+Write your service in any language and DB of your choice.
+
+Get your application up and running in your http://localhost:1121.
+
+Check in your code with configuration steps and important notes in README file to your repository and share the link.
+
+
+Requirements:
+
+Create a simple form with radio options with Search by IFSC | Search by Name
+
+1.When selecting 'Search by IFSC':
+
+Get the IFSC code using input box, and when clicking on Ok, the bank details should be shown.
+If IFSC not available, invalid IFSC should be shown.
+
+
+2.When selecting 'Search by Name':
+
+Get Name*, City, district, state* (drop down with all states), address, sort by (drop down with all columns).
+* - mandatory fields to enter.
+When clicking on Ok, show the list of banks in table form.
+
